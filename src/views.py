@@ -111,3 +111,14 @@ def insertMessage():
             "userId": message.userId
         }
     }
+
+@views.route('/messages/<int:id>', methods=['DELETE'])
+def deleteMessage(id):
+    mess = Messages.query.filter_by(id=id).first_or_404()
+
+    db.session.delete(mess)
+    db.session.commit()
+
+    return {
+        'success': 'Delete message successfully'
+    }
